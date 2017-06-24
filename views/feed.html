@@ -1,23 +1,52 @@
 <script type="text/javascript">
-	$('.materialboxed').materialbox();
+	
+	$(document).ready(function(){
+		// $('#modal1').modal('open');
+		 $('.modal').modal({
+		 	 dismissible: true, // Modal can be dismissed by clicking outside of the modal
+      opacity: .8, // Opacity of modal background
+      inDuration: 300, // Transition in duration
+      outDuration: 200, // Transition out duration
+      startingTop: '4%', // Starting top style attribute
+      endingTop: '10%' // Callback for Modal close
+    });
+		$("#FeedView").on("click","img",function(){
+			//alert(55);
+			$('.materialboxed').materialbox();
+			// $('#modal1').modal('open');
+		});
+		 //$('#modal1').modal('close');
+	});
 </script>
-<div ng-controller="FeedController as vm" >
-	<h1>{{vm.name}}</h1>
+
+ <div id="modal1" class="modal" >
+    <div class="modal-content"  >
+      <img src="images/default-img.png"   alt="" class="z-depth-2 hoverable " style="height: 80%;width:80%">
+    </div>
+    <div class="modal-footer" style="">
+      <a href="#!" class="modal-action modal-close waves-effect waves-green btn-flat">Agree</a>
+    </div>
+  </div>
+
+<div id="FeedView" ng-controller="FeedController as vm" >
+	<h1>{{vm.title}}</h1>
 	<!-- <div ng-repeat="profile in vm.profileList"> -->
-	<ul class="collection" style="padding: 10px;">
+	<ul ng-repeat="profile in vm.profileList" class="collection" style="padding: 10px;">
 		
 		<div class="col m4" >
 			<div class="col m6 s6" >
-				<img src="images/default-img.png"  data-caption="Hello World"  alt="" class="z-depth-2 hoverable materialboxed" style="width: 100%;height: 100%">
+			<!-- materialboxed -->
+				<img src="images/default-img.png"  data-caption=" Hello World {{profile.name}}"  alt="" class="z-depth-2 hoverable materialboxed" style="width: 100%;height: 100%">
 			</div>
 			<div class="col  m6 s6">
-				<span class="title"><b>JOHN SNOW</b></span>
-				<p>First Line <br>
-					Second Line <br>
+				<span class="title"><b>{{profile.name}}</b></span>
+				<p>Age : {{profile.age}} <br>
+					Status : {{profile.status}}  <br>
 					<div class="row">
 						<div class="col m4 center-align" >
 							<i class="material-icons ">face</i> <br>
 							<label>23.5k</label>
+
 						</div>
 						<div class="col m4 center-align" >
 							<i class="material-icons">grade</i> <br>
@@ -31,13 +60,15 @@
 				</p>
 			</div>
 		</div>
-		<div class="col m2 s3">
+		<div ng-repeat="gallory in profile.gallerys | limitTo:4 | orderBy:'-gallary_rate_count' " class="col m2 s3">
 			<div class="col  m12">
+			
+			<!-- materialboxed -->
 				<img src="images/default-img.png" alt="" class="z-depth-2 hoverable materialboxed" style="width: 100%;height: 100%">
 			</div>
 			
 		</div>
-		<div class="col m2 s3">
+		<!-- <div class="col m2 s3">
 			<div class="col  m12">
 				<img src="images/default-img.png" alt="" class="z-depth-2 hoverable materialboxed" style="width: 100%;height: 100%">
 			</div>
@@ -54,15 +85,16 @@
 				<img src="images/default-img.png" alt="" class="z-depth-2 hoverable materialboxed" style="width: 100%;height: 100%">
 			</div>
 			
-		</div>
-		<div class="col m2 s3  center-align right" style="margin-top:10px;">
+		</div> -->
+		
+		<div  class="col m2 s3  center-align right" style="margin-top:10px;">
 			<u><a href="#Profile">See More</a></u>
 		</div>
 		
 		
 		
 	</ul>
-	<ul class="collection" style="padding: 10px;">
+	<!-- <ul class="collection" style="padding: 10px;">
 		
 		<div class="col m4" >
 			<div class="col m6 s6" >
@@ -116,8 +148,8 @@
 		<div class="col m2 s3  center-align right" style="margin-top:10px;">
 			<u><a href="#Profile">See More</a></u>
 		</div>
-		<!--
-		<a href="#!" class="secondary-content"><i class="material-icons">grade</i></a> -->
+		
+		<a href="#!" class="secondary-content"><i class="material-icons">grade</i></a> 
 		
 	</ul>
 	<ul class="collection" style="padding: 10px;">
@@ -173,14 +205,23 @@
 		</div>
 		<div class="col m2 s3  center-align right" style="margin-top:10px;">
 			<u><a href="#Profile">See More</a></u>
-		</div>
+		</div> 
+	 	{{vm.profileList}}
+		<table>
+		<tr>
+			<th>id</th>
+			<th>name</th>
+			<th>age</th>
+			<th>status</th>
+		</tr>
+		<tr ng-repeat="profile in vm.profileList">
+			<td>{{profile.id}} </td>
+			<td>{{profile.name}}</td>
+			<td>{{profile.age}}</td>
+			<td>{{profile.status}}</td>
+		</tr>
+		</table> -->
 		
-		<div ng-repeat="profile in vm.profileList">
-			<div>{{profile.id}}</div>
-			<div>{{profile.name}}</div>
-			<div>{{profile.age}}</div>
-			<div>{{profile.status}}</div>
-		</div>
 		
 		<!-- 	</div>  -->
 		
