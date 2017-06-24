@@ -46,7 +46,7 @@ function CameraFactory() {
 
     Camera.reset = function () {
 
-        console.log('Camera.stream ::==', Camera.stream);
+        //console.log('Camera.stream ::==', Camera.stream);
         video = document.querySelector('video');
         // Older browsers may not have srcObject
         if ("srcObject" in video) {

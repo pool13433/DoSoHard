@@ -37,22 +37,41 @@ function FeedController($scope, FirebaseService) {
 
 }
 
-function CaptureController(CameraFactory, FirebaseService, Utility,GeolocationFactory, $scope) {
+function CaptureController(CameraFactory, FirebaseService, Utility, GeolocationFactory, $scope) {
     var vm = this;
     var firebaseStoragePath = "gallery/";
     var $modalCapture = $('#model-capture-form');
+    vm.profileList = [];
 
     // Firebase
     var refProfile = firebase.database().ref().child('/profile');
-    /*refProfile.orderByKey().on("value", function (snapshot) {
+    refProfile.orderByKey().on("value", function (snapshot) {
         snapshot.forEach(function (data) {
-            console.log('data ::==', data.key);
-            var _data = snapshot.child(data.key).val();
+            var _id = data.key;
+            console.log('data ::==', _id);
+            var _data = snapshot.child(_id).val();
             console.log('_data ::==', _data);
+
+            // Galllery List
+            var refGallery = firebase.database().ref().child('/gallery');
+            refGallery.orderByChild("user_id").equalTo(_id).on("value", function (subSnapshot) {
+                _data.gallerys = [];
+                subSnapshot.forEach(function (data) {
+                    var _dataSub = subSnapshot.child(data.key).val();
+                    console.log('_dataSub ::==', _dataSub);
+                    _data.gallerys.push(_dataSub);
+                });
+                vm.profileList.push(_data);
+                console.log("vm.profileList :: " ,vm.profileList);
+            }, function (error) {
+                console.log("Error: " + error.code);
+            });
+
         });
     }, function (error) {
         console.log("Error: " + error.code);
-    });*/
+    });
+
 
     vm.camera = { isCameraWorking: false, time: 0, capture: false };
     //vm.isCameraWorking = false;
@@ -107,27 +126,27 @@ function CaptureController(CameraFactory, FirebaseService, Utility,GeolocationFa
 
     vm.pushPost = function (event) {
         var coords = GeolocationFactory.coords;
+        var currentDTM = firebase.database.ServerValue.TIMESTAMP;
         var refGallery = firebase.database().ref().child('/gallery');
         var blobName = Utility.guid() + '.png';
         var form = {
-            caption: vm.caption,
-            date: "xxxxx",
-            date_time: "2017-03-34 10:20:45",
+            caption: vm.caption,            
+            date_time: currentDTM,
             image_name: blobName,
             latitude: coords.latitude,
-            location_name: "Union",
+            location_name: vm.location_name,
             longitude: coords.longitude,
-            user_id: "xxxxxx"
+            user_id: "-Km1o604__n-j5yOkTce"
         }
-        refGallery.push(form,function(){
+        refGallery.push(form, function () {
             pushMediaToStorage(blobName);
             $('#model-capture-form').modal('close');
             setTimeout(function () {
                 CameraFactory.init();
                 vm.camera.capture = false;
-            },1000);                        
+            }, 1000);
         });
-        
+
         vm.form = {};
         event.preventDefault();
 
@@ -139,10 +158,37 @@ function CaptureController(CameraFactory, FirebaseService, Utility,GeolocationFa
         }*/
     }
 
+    vm.loginFB = function () {
+        var provider = new firebase.auth.FacebookAuthProvider();
+        //provider.addScope('user_birthday');
+        provider.addScope('public_profile');
+        provider.setCustomParameters({
+            'display': 'popup'
+        });
+        firebase.auth().signInWithPopup(provider).then(function (result) {
+            // This gives you a Facebook Access Token. You can use it to access the Facebook API.
+            var token = result.credential.accessToken;
+            // The signed-in user info.
+            var user = result.user;
+            // ...
+            console.log('user ::==', user);
+        }).catch(function (error) {
+            // Handle Errors here.
+            var errorCode = error.code;
+            var errorMessage = error.message;
+            // The email of the user's account used.
+            var email = error.email;
+            // The firebase.auth.AuthCredential type that was used.
+            var credential = error.credential;
+            // ...
+            console.log('error ::==', error);
+        });
+    }
+
 
     function pushMediaToStorage(blobName) {
         var dataURL = canvas.toDataURL('image/png'); //'image/webp'
-        console.log('dataURL ::==', dataURL);
+        //console.log('dataURL ::==', dataURL);
         //document.querySelector('img').src = dataURL;
         var storageRef = firebase.storage().ref(firebaseStoragePath + blobName);
         var uploadTask = storageRef.put(CameraFactory.dataURItoBlob(dataURL));
@@ -153,9 +199,7 @@ function CaptureController(CameraFactory, FirebaseService, Utility,GeolocationFa
 
 
 
-    $scope.$watch(function () {
-        return vm.camera;
-    }, function (newData, oldData) {
+    $scope.$watch(['camera', 'profileList'], function (newData, oldData) {
         console.log('newData ::==', newData);
         console.log('oldData ::==', oldData);
     });
