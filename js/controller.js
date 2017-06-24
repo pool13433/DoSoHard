@@ -22,8 +22,21 @@ function FeedController($scope) {
 
 }
 
-function CaptureController(CameraFactory, $scope) {
+function CaptureController(CameraFactory, FirebaseService, $scope) {
     var vm = this;
+
+    // Firebase
+    var refProfile = firebase.database().ref().child('/profile');
+    refProfile.orderByKey().on("value", function (snapshot) {
+        snapshot.forEach(function (data) {
+            console.log('data ::==', data.key);
+            var _data = snapshot.child(data.key).val();
+            console.log('_data ::==', _data);
+        });
+    }, function (error) {
+        console.log("Error: " + error.code);
+    });
+
     vm.camera = { isCameraWorking: false, time: 0, capture: false };
     //vm.isCameraWorking = false;
     vm.name = 'Capture';
