@@ -41,3 +41,5 @@ app.config(function ($locationProvider, $routeProvider) {
         }
     });
 }); */
+app.run(['$safeApply', function () { }]);
+
