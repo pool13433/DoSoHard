@@ -1,9 +1,10 @@
 app.controller('IndexController', IndexController)
-app.controller('FeedController', FeedController)
-app.controller('CaptureController', CaptureController)
-app.controller('ProfileController', ProfileController)
-app.controller('GeolocationController', GeolocationController)
-app.run(['$safeApply', function() {}]);
+    .controller('FeedController', FeedController)
+    .controller('CaptureController', CaptureController)
+    .controller('ProfileController', ProfileController)
+    .controller('GeolocationController', GeolocationController)
+    .controller('LoginController', LoginController)
+app.run(['$safeApply', function () { }]);
 
 /** @ngInject */
 function IndexController($scope) {
@@ -11,24 +12,22 @@ function IndexController($scope) {
 
 
     vm.name = 'Index';
-
-
 }
 
 function FeedController($scope, FirebaseService) {
     var vm = this;
     var refProfile = firebase.database().ref().child('/profile');
 
-    refProfile.orderByKey().on("value", function(snapshot) {
-      
-            vm.profileList = [];
-            snapshot.forEach(function(data) {
-                console.log('data ::==', data.key);
-                var _data = snapshot.child(data.key).val();
-                _data.id = data.key
-                vm.profileList.push(_data);
-            });
-    }, function(error) {
+    refProfile.orderByKey().on("value", function (snapshot) {
+
+        vm.profileList = [];
+        snapshot.forEach(function (data) {
+            console.log('data ::==', data.key);
+            var _data = snapshot.child(data.key).val();
+            _data.id = data.key
+            vm.profileList.push(_data);
+        });
+    }, function (error) {
         console.log("Error: " + error.code);
     });
     //Title
@@ -58,11 +57,11 @@ function CaptureController(CameraFactory, FirebaseService, Utility, GeolocationF
                 _data.gallerys = [];
                 subSnapshot.forEach(function (data) {
                     var _dataSub = subSnapshot.child(data.key).val();
-                    console.log('_dataSub ::==', _dataSub);
+                    //console.log('_dataSub ::==', _dataSub);
                     _data.gallerys.push(_dataSub);
                 });
                 vm.profileList.push(_data);
-                console.log("vm.profileList :: " ,vm.profileList);
+                //console.log("vm.profileList :: ", vm.profileList);
             }, function (error) {
                 console.log("Error: " + error.code);
             });
@@ -130,7 +129,7 @@ function CaptureController(CameraFactory, FirebaseService, Utility, GeolocationF
         var refGallery = firebase.database().ref().child('/gallery');
         var blobName = Utility.guid() + '.png';
         var form = {
-            caption: vm.caption,            
+            caption: vm.caption,
             date_time: currentDTM,
             image_name: blobName,
             latitude: coords.latitude,
@@ -219,22 +218,22 @@ function ProfileController($scope) {
     vm.resultMapingLocation;
     var childValue;
     var ref = firebase.database().ref("/gallery");
-    ref.orderByChild("user_id").equalTo(vm.profile_profileKey).on("value", function(snapshot) {
-        $scope.$safeApply(function() {
+    ref.orderByChild("user_id").equalTo(vm.profile_profileKey).on("value", function (snapshot) {
+        $scope.$safeApply(function () {
             snapshot.forEach(function (data) {
                 childValue = snapshot.child(data.key).val();
-                if(vm.imageMapLocation[childValue.location_name] == null){
+                if (vm.imageMapLocation[childValue.location_name] == null) {
                     vm.imageMapLocationConvert[vm.imageMapLocationConvert.length] = childValue.location_name;
                     vm.imageMapLocation[childValue.location_name] = vm.contLocation++;
                 }
                 vm.resultMapingLocation = vm.imageMapLocation[childValue.location_name];
                 vm.imageValue[vm.imageValue.length] = childValue;
-                if(vm.imageObj[vm.resultMapingLocation] == undefined){
+                if (vm.imageObj[vm.resultMapingLocation] == undefined) {
                     vm.imageObj[vm.resultMapingLocation] = [];
                 }
                 vm.imageObj[vm.resultMapingLocation][vm.imageObj[vm.resultMapingLocation].length] = childValue.image_name;
             });
-            vm.imageToPage = vm.imageMapLocationConvert.map(function(value, index) {
+            vm.imageToPage = vm.imageMapLocationConvert.map(function (value, index) {
                 return {
                     data: value,
                     value: vm.imageObj[index]
@@ -253,7 +252,11 @@ function GeolocationController() {
 
 
     vm.name = 'Geolocation';
-    
+
+}
+
+function LoginController() {
+
 }
 
 
