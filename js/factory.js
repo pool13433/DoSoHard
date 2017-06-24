@@ -3,6 +3,13 @@ app.factory('Utility', Utility);
 app.factory('GeolocationFactory', GeolocationFactory);
 app.factory('$safeApply', ['$rootScope', safeApply]);
 
+app.filter('split', function() {
+    return function(input, splitChar, splitIndex) {
+        // do some bounds checking here to ensure it has that index
+        return input.split(splitChar)[splitIndex];
+    }
+});
+
 function GeolocationFactory() {
     var Geolocation = {}
 
@@ -46,7 +53,7 @@ function CameraFactory() {
 
     Camera.reset = function () {
 
-        console.log('Camera.stream ::==', Camera.stream);
+        //console.log('Camera.stream ::==', Camera.stream);
         video = document.querySelector('video');
         // Older browsers may not have srcObject
         if ("srcObject" in video) {

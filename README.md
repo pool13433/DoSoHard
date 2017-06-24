@@ -1,2 +1,11 @@
-# DoSoHard
-PWA Online hackathon With ReWorker Team
+แอพสำหรับแชร์รูปสวย ๆ ในสถานที่ต่าง ๆ (DoSoHard)
+ความสามารถของโปรแกรม
+- สามารถเข้าใช้งานระบบด้วย Facebook Account,Google Account
+- แสดง Feed แสดง Gallery ผู้ใช้ที่ใช้งานแอพโดยเรียงลำดับตามยอดไลค์รูปนั้น ๆ ,กดไลค์ได้ด้วย
+- มีระบบถ่ายภาพที่ เก็บภาพ และ สถานที่ ,ตั้งเวลาถ่ายได้
+- แสดงตำแหน่งปัจจุบันของผู้ใช้แอพ, แสดงตำแหน่งของผู้ที่มีการเรียกใช้งานแอพใกล้ ๆ บนแผนที่
+- ดูรูป Gallery ของตัวเอง
+
+Demo : https://dosohard.firebaseapp.com/
+
+Copyright by Reworker Teams

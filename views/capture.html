@@ -1,3 +1,4 @@
+<script type="text/javascript" src="./node_modules/materialize-css/dist/js/materialize.min.js"></script>
 <div ng-controller="CaptureController as vm">
     <h6>{{vm.name}}</h6>
     <div class="row" ng-show="!vm.camera.isCameraWorking">
@@ -9,11 +10,18 @@
 
     <!-- Camera Streaming -->
     <div ng-show="vm.camera.isCameraWorking" style="text-align:center;">
-        <video></video>
+        <video id="videoCapture"></video>
         <canvas style="display:none;" id="canvasCapture"></canvas>
         <center ng-show="vm.camera.capture" class="new badge">กำลังถ่ายภาพ กรุณารอ ...</center>
     </div>    
     <!-- Camera Streaming -->
+
+    <h3>profile</h3>    
+    <button type="button" ng-click="vm.loginFB()">Login Facebook</button>
+    <ol ng-repeat="profile in vm.profileList">
+        <li>{{profile}}</li>
+        <li></li>
+    </ol>
 
     <!-- Buttom Toolbar -->
     <div class="fixed-action-btn horizontal">
