@@ -36,12 +36,14 @@ function FeedController($scope, FirebaseService) {
 
 }
 
-function CaptureController(CameraFactory, FirebaseService, $scope) {
+function CaptureController(CameraFactory, FirebaseService, Utility,GeolocationFactory, $scope) {
     var vm = this;
+    var firebaseStoragePath = "gallery/";
+    var $modalCapture = $('#model-capture-form');
 
     // Firebase
     var refProfile = firebase.database().ref().child('/profile');
-    refProfile.orderByKey().on("value", function (snapshot) {
+    /*refProfile.orderByKey().on("value", function (snapshot) {
         snapshot.forEach(function (data) {
             console.log('data ::==', data.key);
             var _data = snapshot.child(data.key).val();
@@ -49,13 +51,14 @@ function CaptureController(CameraFactory, FirebaseService, $scope) {
         });
     }, function (error) {
         console.log("Error: " + error.code);
-    });
+    });*/
 
     vm.camera = { isCameraWorking: false, time: 0, capture: false };
     //vm.isCameraWorking = false;
     vm.name = 'Capture';
     vm.cameraInit = function () {
         CameraFactory.init();
+        GeolocationFactory.init();
         vm.camera.isCameraWorking = true;
     }
     vm.cameraCapture = function () {
@@ -95,6 +98,60 @@ function CaptureController(CameraFactory, FirebaseService, $scope) {
     vm.cameraSetting = function () {
         alert('Setting');
     };
+
+    var video = document.getElementById('videoCapture');
+    var canvas = document.getElementById('canvasCapture');
+    var ctx = canvas.getContext('2d');
+    var localMediaStream = null;
+
+    vm.pushPost = function (event) {
+        var coords = GeolocationFactory.coords;
+        var refGallery = firebase.database().ref().child('/gallery');
+        var blobName = Utility.guid() + '.png';
+        var form = {
+            caption: vm.caption,
+            date: "xxxxx",
+            date_time: "2017-03-34 10:20:45",
+            image_name: blobName,
+            latitude: coords.latitude,
+            location_name: "Union",
+            longitude: coords.longitude,
+            user_id: "xxxxxx"
+        }
+        refGallery.push(form,function(){
+            pushMediaToStorage(blobName);
+            $('#model-capture-form').modal('close');
+            setTimeout(function () {
+                CameraFactory.init();
+                vm.camera.capture = false;
+            },1000);                        
+        });
+        
+        vm.form = {};
+        event.preventDefault();
+
+        /*if (localMediaStream) {
+            ctx.drawImage(video, 0, 0);
+            // "image/webp" works in Chrome.
+            // Other browsers will fall back to image/png.            
+            pushMediaToStorage(blobName);
+        }*/
+    }
+
+
+    function pushMediaToStorage(blobName) {
+        var dataURL = canvas.toDataURL('image/png'); //'image/webp'
+        console.log('dataURL ::==', dataURL);
+        //document.querySelector('img').src = dataURL;
+        var storageRef = firebase.storage().ref(firebaseStoragePath + blobName);
+        var uploadTask = storageRef.put(CameraFactory.dataURItoBlob(dataURL));
+        uploadTask.on('state_changed', function progress(snapshot) {
+            console.log(snapshot.totalBytesTransferred); // progress of upload
+        });
+    }
+
+
+
     $scope.$watch(function () {
         return vm.camera;
     }, function (newData, oldData) {
@@ -117,7 +174,7 @@ function GeolocationController() {
 
 
     vm.name = 'Geolocation';
-
+    
 }
 
 
