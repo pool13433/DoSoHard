@@ -14,9 +14,9 @@ function IndexController($scope) {
 
 }
 
-function FeedController($scope) {
+function FeedController($scope, FirebaseService) {
     var vm = this;
-
+ 
 
     vm.name = 'Feed';
 
