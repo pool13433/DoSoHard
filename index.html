@@ -4,13 +4,15 @@
 <head>
     <title>แอพ Smart Capture</title>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     <link rel="stylesheet" href="./node_modules/materialize-css/dist/css/materialize.min.css" />
     <script type="text/javascript" src="./node_modules/jquery/dist/jquery.min.js"></script>
-    <!--<script type="text/javascript" src="./node_modules/materialize-css/dist/js/materialize.min.js"></script>-->
+    <script type="text/javascript" src="./node_modules/materialize-css/dist/js/materialize.min.js"></script>
     <script type="text/javascript" src="./node_modules/angular/angular.min.js"></script>
     <script type="text/javascript" src="./node_modules/angular-route/angular-route.min.js"></script>
     <script type="text/javascript" src="./js/app.js"></script>
+    <script type="text/javascript" src="./js/factory.js"></script>
     <script type="text/javascript" src="./js/controller.js"></script>
     <script type="text/javascript" src="./js/service.js"></script>
     <base href="/">
@@ -24,7 +26,10 @@
             </div>
         </nav>
     </div>
-    <div class="row">
+    <!--<div class="progress">
+        <div class="indeterminate"></div>
+    </div>-->
+    <!--<div class="row">
         <div class="container">
             <div ng-view></div>
         </div>
@@ -35,6 +40,45 @@
                 <li class="tab col s3"><a ng-href="/geo">Geolocation</a></li>
                 <li class="tab col s3"><a ng-href="/profile">Profile</a></li>
             </ul>
+    </div>    
+    </div>-->
+    <div class="row">
+        <div class="col s12">
+            <!-- style="position: fixed;top: 0;width: 100%;"-->
+            <ul class="tabs">
+                <li class="tab col s3">
+                    <a class="active" href="#Feed">
+                        Feed
+                    </a>
+                </li>
+                <li class="tab col s3">
+                    <a class="active" href="#Capture">
+                        Capture
+                    </a>
+                </li>
+                <li class="tab col s3">
+                    <a href="#Geolocation">
+                       Geolocation
+                    </a>
+                </li>
+                <li class="tab col s3">
+                    <a href="#Profile">
+                        Profile
+                    </a>
+                </li>
+            </ul>
+        </div>
+        <div id="Feed" class="col s12">
+            <div ng-include="'./views/feed.html'"></div>
+        </div>
+        <div id="Capture" class="col s12">
+            <div ng-include="'./views/capture.html'"></div>            
+        </div>
+        <div id="Geolocation" class="col s12">
+            <div ng-include="'./views/geolocation.html'"></div>
+        </div>
+        <div id="Profile" class="col s12">
+            <div ng-include="'./views/profile.html'"></div>
         </div>
     </div>
 </body>

@@ -1,8 +1,8 @@
 var app = angular.module('dosohardApp', ['ngRoute'])
+app.constant('');
 app.config(function ($locationProvider, $routeProvider) {
     $locationProvider.html5Mode(true).hashPrefix('*');
-    $routeProvider
-        .when("/", {
+    $routeProvider.when("/", {
             templateUrl: "./views/index.html",
             controller: 'IndexController'
         }).when("/feed", {
@@ -22,3 +22,18 @@ app.config(function ($locationProvider, $routeProvider) {
             controller: 'GeolocationController'
         }).otherwise({ redirectTo: "/" });
 });
+
+app.run(function (CameraFactory) {
+    
+    $(document).ready(function () {
+        var $tab = $('ul.tabs').tabs({
+            onShow: function (tab) {
+                //console.log('tab ::==', tab);
+                var id = $(tab).attr('id');
+                if (id == 'Capture') {
+                    //CameraFactory.init();
+                }
+            }
+        });
+    });    
+})

@@ -1,3 +1,33 @@
 <div ng-controller="CaptureController as vm">
-    <h1>{{vm.name}}</h1>
+    <h6>{{vm.name}}</h6>
+    <div class="row" ng-show="!vm.camera.isCameraWorking">
+        <button class="col s12 btn waves-effect waves-light" type="button" ng-click="vm.cameraInit()">
+            Open Camera
+        <i class="material-icons right">settings_overscan</i>
+    </button>
+    </div>
+
+    <!-- Camera Streaming -->
+    <div ng-show="vm.camera.isCameraWorking" style="text-align:center;">
+        <video></video>
+        <canvas style="display:none;" id="canvasCapture"></canvas>
+        <center ng-show="vm.camera.capture" class="new badge">กำลังถ่ายภาพ กรุณารอ ...</center>
+    </div>    
+    <!-- Camera Streaming -->
+
+    <!-- Buttom Toolbar -->
+    <div class="fixed-action-btn horizontal">
+        <a class="btn-floating btn-large red" ng-click="vm.cameraCapture()">
+      <i class="large material-icons">perm_camera_mic</i>
+    </a>
+        <ul>
+            <li><a class="btn-floating red" ng-click="vm.cameraSwitchMode()"><i class="material-icons">repeat</i></a></li>
+            <li><a class="btn-floating green" ng-click="vm.cameraTime()"><i class="material-icons">av_timer</i></a></li>
+            <li><a class="btn-floating yellow darken-1" ng-click="vm.cameraSetting()"><i class="material-icons">settings</i></a></li>
+        </ul>
+    </div>
+    <!-- Buttom Toolbar -->
+
+    <div ng-include="'./views/capture-form.html'"></div>
+
 </div>
