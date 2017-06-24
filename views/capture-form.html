@@ -1,6 +1,6 @@
 <!-- Modal -->
 <div id="model-capture-form" class="modal modal-fixed-footer">
-    <div class="modal-content">
+    <div class="modal-content" ng-model="vm.form">
         <h5>กรอกข้อมูลเพื่อบันทึกรูปเข้าระบบ</h5>
 
         <!-- Form -->
@@ -17,8 +17,14 @@
             <form class="col s12">
                 <div class="row">
                     <div class="input-field col s12">
-                        <textarea id="textarea1" class="materialize-textarea"></textarea>
-                        <label for="textarea1">Textarea</label>
+                        <input id="location_name" type="text" ng-model="vm.location_name"></input>
+                        <label for="location_name">Location Name</label>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="input-field col s12">
+                        <textarea id="caption" class="materialize-textarea" ng-model="vm.caption"></textarea>
+                        <label for="caption">Textarea</label>
                     </div>
                 </div>
             </form>
@@ -28,7 +34,7 @@
     </div>
     <div class="modal-footer">
         <a href="#!" class="modal-action modal-close waves-effect waves-orange btn-flat orange">Close</a>
-        <a href="#!" class="modal-action waves-effect waves-green btn-flat green">Save</a>
+        <a href="#!" class="modal-action waves-effect waves-green btn-flat green" ng-click="vm.pushPost($event)">Save</a>
     </div>
 </div>
 <!-- Modal -->
