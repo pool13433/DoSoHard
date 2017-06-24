@@ -1,2 +1,6 @@
-# DoSoHard
-PWA Online hackathon With ReWorker Team
+# Project Title
+
+DoSoHard
+
+## About
+แอพสำหรับแชร์รูปสวย ๆ ในสถานที่ต่าง ๆ
