@@ -1,222 +1,39 @@
 <script type="text/javascript">
-
     $('.materialboxed').materialbox();
-
-    var profile_profileKey = "-Km1o604__n-j5yOkTce";
-    var ref = firebase.database().ref("/profile");
-    ref.orderByKey().equalTo(profile_profileKey).on("value", function(snapshot) {
-        console.log(snapshot);
-        snapshot.forEach(function (data) {
-            console.log('keyData ::==', data.key);
-            var childValue = snapshot.child(data.key).val();
-            console.log('_data ::==', childValue);
-        });
-    });
-
 </script>
 
 <div ng-controller="ProfileController as vm">
     
-    <div class="col m12">
+    <div ng-repeat="level1 in vm.imageToPage">
         <div class="col m12">
             <div class="col m12">
-                <h5>สวนจตุจักร</h5>
-            </div>
-        </div>
-    </div>
-    <div class="col m12">
-        <div class="col m3" >
-            <div class="col m12 s12" >
-                <img src="images/default-img.png" alt="" class="z-depth-2 hoverable materialboxed" style="width: 100%;height: 100%">
-                <div class="valign-wrapper">
-                    <i class="material-icons ">grade</i>
-                    <label>23.5k</label>
+                <div class="col m12">
+                    <h5>{{level1.data}}</h5>
                 </div>
             </div>
         </div>
-        <div class="col m8">
-            <div class="col m2 s6">
-                <img src="images/default-img.png" alt="" class="z-depth-2 hoverable materialboxed" style="width: 100%;height: 100%">
-                <div class="valign-wrapper">
-                    <i class="material-icons ">grade</i> 
-                    <label>23.5k</label>
-                </div>
-            </div>
-            <div class="col m2 s6">
-                <img src="images/default-img.png" alt="" class="z-depth-2 hoverable materialboxed" style="width: 100%;height: 100%">
-                <div class="valign-wrapper">
-                    <i class="material-icons ">grade</i> 
-                    <label>23.5k</label>
-                </div>
-            </div>
-            <div class="col m2 s6">
-                <img src="images/default-img.png" alt="" class="z-depth-2 hoverable materialboxed" style="width: 100%;height: 100%">
-                <div class="valign-wrapper">
-                    <i class="material-icons ">grade</i> 
-                    <label>23.5k</label>
-                </div>
-            </div>
-            <div class="col m2 s6">
-                <img src="images/default-img.png" alt="" class="z-depth-2 hoverable materialboxed" style="width: 100%;height: 100%">
-                <div class="valign-wrapper">
-                    <i class="material-icons ">grade</i> 
-                    <label>23.5k</label>
-                </div>
-            </div>
-            <div class="col m2 s6">
-                <img src="images/default-img.png" alt="" class="z-depth-2 hoverable materialboxed" style="width: 100%;height: 100%">
-                <div class="valign-wrapper">
-                    <i class="material-icons ">grade</i> 
-                    <label>23.5k</label>
-                </div>
-            </div>
-            <div class="col m2 s6">
-                <img src="images/default-img.png" alt="" class="z-depth-2 hoverable materialboxed" style="width: 100%;height: 100%">
-                <div class="valign-wrapper">
-                    <i class="material-icons ">grade</i> 
-                    <label>23.5k</label>
-                </div>
-            </div>
-            <div class="col m2 s6">
-                <img src="images/default-img.png" alt="" class="z-depth-2 hoverable materialboxed" style="width: 100%;height: 100%">
-                <div class="valign-wrapper">
-                    <i class="material-icons ">grade</i> 
-                    <label>23.5k</label>
-                </div>
-            </div>
-            <div class="col m2 s6">
-                <img src="images/default-img.png" alt="" class="z-depth-2 hoverable materialboxed" style="width: 100%;height: 100%">
-                <div class="valign-wrapper">
-                    <i class="material-icons ">grade</i> 
-                    <label>23.5k</label>
-                </div>
-            </div>
-            <div class="col m2 s6">
-                <img src="images/default-img.png" alt="" class="z-depth-2 hoverable materialboxed" style="width: 100%;height: 100%">
-                <div class="valign-wrapper">
-                    <i class="material-icons ">grade</i> 
-                    <label>23.5k</label>
-                </div>
-            </div>
-            <div class="col m2 s6">
-                <img src="images/default-img.png" alt="" class="z-depth-2 hoverable materialboxed" style="width: 100%;height: 100%">
-                <div class="valign-wrapper">
-                    <i class="material-icons ">grade</i> 
-                    <label>23.5k</label>
-                </div>
-            </div>
-            <div class="col m2 s6">
-                <img src="images/default-img.png" alt="" class="z-depth-2 hoverable materialboxed" style="width: 100%;height: 100%">
-                <div class="valign-wrapper">
-                    <i class="material-icons ">grade</i> 
-                    <label>23.5k</label>
-                </div>
-            </div>
-            <div class="col m2 s6 valign-wrapper">
-                <u><a href="#Profile">See More</a></u>
-            </div>
-        </div>
-    </div>
-
-
-
-    <div class="col m12">
         <div class="col m12">
-            <div class="col m12">
-                <h5>สวนนงนุช</h5>
-            </div>
-        </div>
-    </div>
-    <div class="col m12">
-        <div class="col m3" >
-            <div class="col m12 s12" >
-                <img src="images/default-img.png" alt="" class="z-depth-2 hoverable materialboxed" style="width: 100%;height: 100%">
-                <div class="valign-wrapper">
-                    <i class="material-icons ">grade</i>
-                    <label>23.5k</label>
+            <div class="col m3" >
+                <div class="col m12 s12" >
+                    <img src="images/default-img.png" alt="" class="z-depth-2 hoverable materialboxed" style="width: 100%;height: 100%">
+                    <div class="valign-wrapper">
+                        <i class="material-icons ">grade</i>
+                        <label>23.5k</label>
+                    </div>
                 </div>
             </div>
-        </div>
-        <div class="col m8">
-            <div class="col m2 s6">
-                <img src="images/default-img.png" alt="" class="z-depth-2 hoverable materialboxed" style="width: 100%;height: 100%">
-                <div class="valign-wrapper">
-                    <i class="material-icons ">grade</i> 
-                    <label>23.5k</label>
-                </div>
-            </div>
-            <div class="col m2 s6">
-                <img src="images/default-img.png" alt="" class="z-depth-2 hoverable materialboxed" style="width: 100%;height: 100%">
-                <div class="valign-wrapper">
-                    <i class="material-icons ">grade</i> 
-                    <label>23.5k</label>
-                </div>
-            </div>
-            <div class="col m2 s6">
-                <img src="images/default-img.png" alt="" class="z-depth-2 hoverable materialboxed" style="width: 100%;height: 100%">
-                <div class="valign-wrapper">
-                    <i class="material-icons ">grade</i> 
-                    <label>23.5k</label>
-                </div>
-            </div>
-            <div class="col m2 s6">
-                <img src="images/default-img.png" alt="" class="z-depth-2 hoverable materialboxed" style="width: 100%;height: 100%">
-                <div class="valign-wrapper">
-                    <i class="material-icons ">grade</i> 
-                    <label>23.5k</label>
-                </div>
-            </div>
-            <div class="col m2 s6">
-                <img src="images/default-img.png" alt="" class="z-depth-2 hoverable materialboxed" style="width: 100%;height: 100%">
-                <div class="valign-wrapper">
-                    <i class="material-icons ">grade</i> 
-                    <label>23.5k</label>
-                </div>
-            </div>
-            <div class="col m2 s6">
-                <img src="images/default-img.png" alt="" class="z-depth-2 hoverable materialboxed" style="width: 100%;height: 100%">
-                <div class="valign-wrapper">
-                    <i class="material-icons ">grade</i> 
-                    <label>23.5k</label>
-                </div>
-            </div>
-            <div class="col m2 s6">
-                <img src="images/default-img.png" alt="" class="z-depth-2 hoverable materialboxed" style="width: 100%;height: 100%">
-                <div class="valign-wrapper">
-                    <i class="material-icons ">grade</i> 
-                    <label>23.5k</label>
-                </div>
-            </div>
-            <div class="col m2 s6">
-                <img src="images/default-img.png" alt="" class="z-depth-2 hoverable materialboxed" style="width: 100%;height: 100%">
-                <div class="valign-wrapper">
-                    <i class="material-icons ">grade</i> 
-                    <label>23.5k</label>
-                </div>
-            </div>
-            <div class="col m2 s6">
-                <img src="images/default-img.png" alt="" class="z-depth-2 hoverable materialboxed" style="width: 100%;height: 100%">
-                <div class="valign-wrapper">
-                    <i class="material-icons ">grade</i> 
-                    <label>23.5k</label>
-                </div>
-            </div>
-            <div class="col m2 s6">
-                <img src="images/default-img.png" alt="" class="z-depth-2 hoverable materialboxed" style="width: 100%;height: 100%">
-                <div class="valign-wrapper">
-                    <i class="material-icons ">grade</i> 
-                    <label>23.5k</label>
-                </div>
-            </div>
-            <div class="col m2 s6">
-                <img src="images/default-img.png" alt="" class="z-depth-2 hoverable materialboxed" style="width: 100%;height: 100%">
-                <div class="valign-wrapper">
-                    <i class="material-icons ">grade</i> 
-                    <label>23.5k</label>
+            <div class="col m8">
+                <div ng-repeat="level2 in level1.value">
+                    <div class="col m2 s6">
+                        <img src="images/default-img.png" alt="" class="z-depth-2 hoverable materialboxed" style="width: 100%;height: 100%">
+                        <div class="valign-wrapper">
+                            <i class="material-icons ">grade</i> 
+                            <label>23.5k</label>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
     </div>
-
 
 </div>

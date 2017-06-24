@@ -3,6 +3,7 @@ app.controller('FeedController', FeedController)
 app.controller('CaptureController', CaptureController)
 app.controller('ProfileController', ProfileController)
 app.controller('GeolocationController', GeolocationController)
+app.run(['$safeApply', function() {}]);
 
 /** @ngInject */
 function IndexController($scope) {
@@ -205,10 +206,46 @@ function CaptureController(CameraFactory, FirebaseService, Utility, GeolocationF
 
 }
 
-function ProfileController() {
+function ProfileController($scope) {
     var vm = this;
     vm.name = 'Profile';
-
+    vm.profile_profileKey = "-Km1o604__n-j5yOkTce";
+    vm.imageValue = [];
+    vm.imageObj = [[]];
+    vm.imageMapLocation = [];
+    vm.imageMapLocationConvert = [];
+    vm.imageToPage = [];
+    vm.contLocation = 0;
+    vm.resultMapingLocation;
+    var childValue;
+    var ref = firebase.database().ref("/gallery");
+    ref.orderByChild("user_id").equalTo(vm.profile_profileKey).on("value", function(snapshot) {
+        $scope.$safeApply(function() {
+            snapshot.forEach(function (data) {
+                childValue = snapshot.child(data.key).val();
+                if(vm.imageMapLocation[childValue.location_name] == null){
+                    vm.imageMapLocationConvert[vm.imageMapLocationConvert.length] = childValue.location_name;
+                    vm.imageMapLocation[childValue.location_name] = vm.contLocation++;
+                }
+                vm.resultMapingLocation = vm.imageMapLocation[childValue.location_name];
+                vm.imageValue[vm.imageValue.length] = childValue;
+                if(vm.imageObj[vm.resultMapingLocation] == undefined){
+                    vm.imageObj[vm.resultMapingLocation] = [];
+                }
+                vm.imageObj[vm.resultMapingLocation][vm.imageObj[vm.resultMapingLocation].length] = childValue.image_name;
+            });
+            vm.imageToPage = vm.imageMapLocationConvert.map(function(value, index) {
+                return {
+                    data: value,
+                    value: vm.imageObj[index]
+                }
+            });
+            console.log("vm.imageToPage : ", vm.imageToPage);
+            console.log("vm.imageMapLocation : ", vm.imageMapLocation);
+            console.log("vm.imageMapLocationConvert : ", vm.imageMapLocationConvert);
+            console.log("vm.imageObj array : ", vm.imageObj);
+        });
+    });
 }
 
 function GeolocationController() {
