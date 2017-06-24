@@ -163,19 +163,6 @@ function CaptureController(CameraFactory, FirebaseService, Utility,GeolocationFa
 
 function ProfileController() {
     var vm = this;
-aasda
-aasdaad
-abstractd
-aasdaadsd
-addEventListeneras
-da
-sd
-abstractdsd
-aasdaas
-debuggerad
-DOMSettableTokenList
-sd
-
     vm.name = 'Profile';
 
 }
