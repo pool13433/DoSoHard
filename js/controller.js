@@ -92,7 +92,18 @@ function CaptureController(CameraFactory, FirebaseService, $scope) {
 
 function ProfileController() {
     var vm = this;
-
+aasda
+aasdaad
+abstractd
+aasdaadsd
+addEventListeneras
+da
+sd
+abstractdsd
+aasdaas
+debuggerad
+DOMSettableTokenList
+sd
 
     vm.name = 'Profile';
 
