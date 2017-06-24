@@ -1,7 +1,3 @@
-<script type="text/javascript">
-    $('.materialboxed').materialbox();
-</script>
-
 <div ng-controller="ProfileController as vm">
     <div ng-repeat="level1 in vm.imageToPage">
         <div class="col m12">
@@ -27,12 +23,11 @@
                         <img src="images/default-img.png" alt="" class="z-depth-2 hoverable materialboxed" style="width: 100%;height: 100%">
                         <div class="valign-wrapper">
                             <i class="material-icons ">grade</i> 
-                            <label>23.5k</label>
+                            <label>{{level2 | split:'~#~#':1}}</label>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
     </div>
-
 </div>

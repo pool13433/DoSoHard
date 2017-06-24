@@ -3,6 +3,13 @@ app.factory('Utility', Utility);
 app.factory('GeolocationFactory', GeolocationFactory);
 app.factory('$safeApply', ['$rootScope', safeApply]);
 
+app.filter('split', function() {
+    return function(input, splitChar, splitIndex) {
+        // do some bounds checking here to ensure it has that index
+        return input.split(splitChar)[splitIndex];
+    }
+});
+
 function GeolocationFactory() {
     var Geolocation = {}
 
