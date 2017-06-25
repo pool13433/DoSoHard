@@ -70,10 +70,10 @@ function FeedController($scope, FirebaseService, $rootScope) {
         console.log("Error: " + error.code);
     });
     
-    var googleProvider = $rootScope.firebaseUser;
+    /*var googleProvider = $rootScope.firebaseUser;
     var googleId = googleProvider.providerData[0].uid;
       
-    /*vm.like =  function (userId,idImg) {
+    vm.like =  function (userId,idImg) {
         var refGallery = firebase.database().ref().child('/gallery/'+idImg+'/gallery_rate/');
         console.log("---------userId--------",userId);
         console.log("--------idImg---------",idImg);
@@ -130,7 +130,7 @@ function FeedController($scope, FirebaseService, $rootScope) {
 
 
 
-    }
+    //}
 
   
 }
