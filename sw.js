@@ -1,4 +1,5 @@
-importScripts('workbox-sw.prod.v1.0.1.js');
+//importScripts('workbox-sw.prod.v1.0.1.js');
+importScripts('./node_modules/workbox-sw/build/importScripts/workbox-sw.dev.v1.0.1.js');
 
 /**
  * DO NOT EDIT THE FILE MANIFEST ENTRY
