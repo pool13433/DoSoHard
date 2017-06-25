@@ -1,4 +1,4 @@
-function LoginController(FirebaseService, AuthenticationService, $location, $scope,$rootScope) {
+function LoginController(FirebaseService, AuthenticationService, $location, $scope, $rootScope) {
     var vm = this;
     console.log("TEST");
 
@@ -44,7 +44,14 @@ function LoginController(FirebaseService, AuthenticationService, $location, $sco
         // provider.addScope('https://www.googleapis.com/auth/contacts.readonly');
         var user = firebase.auth().currentUser;
 
+        console.log('user ::==', user);
+
         if (user != null) {
+            $scope.$safeApply(function () {
+                AuthenticationService.SetCredentials(user);
+                $location.path('/feed');
+                console.log(" location.path ::");
+            });
             user.providerData.forEach(function (profile) {
                 console.log("Sign-in provider: " + profile.providerId);
                 console.log("  Provider-specific UID: " + profile.uid);
