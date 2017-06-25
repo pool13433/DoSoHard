@@ -1,5 +1,4 @@
 var app = angular.module('dosohardApp', ['ngRoute'])
-app.constant('');
 app.config(function ($locationProvider, $routeProvider) {
     $locationProvider.html5Mode(true).hashPrefix('*');
     $routeProvider.when("/", {
@@ -26,22 +25,29 @@ app.config(function ($locationProvider, $routeProvider) {
     }).otherwise({ redirectTo: "/feed" });
 });
 
-/*app.run(function ($rootScope, AUTH_EVENTS, AuthService) {
-    $rootScope.$on('$stateChangeStart', function (event, next) {
-        var authorizedRoles = next.data.authorizedRoles;
-        if (!AuthService.isAuthorized(authorizedRoles)) {
-            event.preventDefault();
-            if (AuthService.isAuthenticated()) {
-                // user is not allowed
-                $rootScope.$broadcast(AUTH_EVENTS.notAuthorized);
-            } else {
-                // user is not logged in
-                $rootScope.$broadcast(AUTH_EVENTS.notAuthenticated);
-            }
+app.run(['$rootScope', '$location', 'FirebaseService', '$safeApply', function ($rootScope, $location, FirebaseService) {
+    $rootScope.$on('$viewContentLoaded', function () {
+        console.log('viewContentLoaded ::==');
+        var user = firebase.auth().currentUser;
+        if (user == null) {
+            $location.path('/login');
         }
     });
-}); */
-app.run(['$safeApply', function () {
-    
 }]);
+
+app.controller('MenuController', function (FirebaseService, AuthenticationService, $window) {
+    var vm = this;
+    vm.logout = function () {
+        firebase.auth().signOut().then(function () {
+            console.log("sing-out suc");
+            setTimeout(function () {
+                AuthenticationService.ClearCredentials();
+                $window.location.href = '/';
+                console.log(" location.path ::");
+            }, 2000);
+        }).catch(function (error) {
+            console.log("sing-out fail", error);
+        });
+    }
+})
 

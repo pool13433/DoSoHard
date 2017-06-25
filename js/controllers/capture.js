@@ -111,6 +111,8 @@ function CaptureController(CameraFactory, FirebaseService, Utility, GeolocationF
             $('#model-capture-form').modal('close');
             setTimeout(function () {
                 CameraFactory.init();
+                vm.caption = '';
+                vm.location_name = '';
                 vm.camera.capture = false;
             }, 1000);
         });
