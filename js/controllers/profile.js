@@ -37,6 +37,11 @@ function ProfileController($scope, FirebaseService, $rootScope) {
         getDataFromDataBase(snapshot);
     });
 
+    firebase.database().ref("/gallery").orderByChild("user_id").equalTo(vm.profile_profileKey).on("child_added", function (snapshot) {
+        resetValue();
+        getDataFromDataBase(snapshot);
+    });
+
     firebase.database().ref("/gallery").orderByChild("user_id").equalTo(vm.profile_profileKey).on("value", function (snapshot) {
        getDataFromDataBase(snapshot);
     }); 
