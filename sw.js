@@ -6311,3 +6311,8 @@ const fileManifest = [
 
 const workboxSW = new self.WorkboxSW();
 workboxSW.precache(fileManifest);
+
+workboxSW.router.registerRoute(
+  'https://dosohard.firebaseio.com/(.*)',
+  workboxSW.strategies.networkFirst()
+);
