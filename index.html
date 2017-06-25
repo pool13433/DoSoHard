@@ -3,8 +3,8 @@
 
 <head>
     <title>แอพ Smart Capture</title>
-    <meta charset="UTF-8">        
-    <meta name="theme-color" content="#db5945">    
+    <meta charset="UTF-8">
+    <meta name="theme-color" content="#db5945">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
     <link rel="icon" sizes="192x192" href="./images/logo/launcher-icon-192x192.png">
     <link rel="stylesheet" href="../css/icon.css" />
@@ -12,7 +12,7 @@
     <!--<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">-->
     <link href="./node_modules/materialize-css/dist/fonts/roboto/Roboto-Regular.woff" rel="stylesheet">
     <link rel="stylesheet" href="./node_modules/materialize-css/dist/css/materialize.min.css" />
-    
+
     <script type="text/javascript" src="./node_modules/jquery/dist/jquery.min.js"></script>
     <script type="text/javascript" src="./node_modules/lodash/lodash.min.js"></script>
     <script type="text/javascript" src="./node_modules/firebase/firebase.js"></script>
@@ -30,7 +30,7 @@
     <script type="text/javascript" src="./js/controller.js"></script>
     <script type="text/javascript" src="./js/service.js"></script>
     <base href="/">
-    
+
     <script type="text/javascript">
         if ('serviceWorker' in navigator) {
             window.addEventListener('load', function () {
@@ -47,10 +47,13 @@
 </head>
 
 <body>
-    <div class="navbar-fixed">
+    <div class="navbar-fixed" ng-controller="MenuController as vm">
         <nav>
             <div class="nav-wrapper">
                 <a href="#" class="brand-logo">Logo</a>
+                <ul id="nav-mobile" class="right hide-on-med-and-down" ng-show="firebaseUser">                                        
+                    <li><a ng-click="vm.logout()">Logout</a></li>
+                </ul>
             </div>
         </nav>
     </div>
@@ -61,7 +64,7 @@
         <div class="container">
             <div ng-view></div>
         </div>
-        <div class="col s12" style="position: fixed;bottom: 0;width: 100%;">
+        <div class="col s12" style="position: fixed;bottom: 0;width: 100%;" ng-show="firebaseUser">
             <ul class="tabs">
                 <li class="tab col s3"><a ng-href="/feed">Feed</a></li>
                 <li class="tab col s3"><a ng-href="/capture">Capture</a></li>
