@@ -1,4 +1,4 @@
-<div ng-controller="CaptureController as vm">
+<div ng-controller="CaptureController as vm">    
     <h6>{{vm.name}}</h6>
     <div class="row" ng-show="!vm.camera.isCameraWorking">
         <button class="col s12 btn waves-effect waves-light" type="button" ng-click="vm.cameraInit()">
@@ -14,14 +14,7 @@
         <center ng-show="vm.camera.capture" class="new badge">กำลังถ่ายภาพ กรุณารอ ...</center>
     </div>    
     <!-- Camera Streaming -->
-
-    <h3>profile</h3>    
-    <button type="button" ng-click="vm.loginFB()">Login Facebook</button>
-    <ol ng-repeat="profile in vm.profileList">
-        <li>{{profile}}</li>
-        <li></li>
-    </ol>
-
+    
     <!-- Buttom Toolbar -->
     <div class="fixed-action-btn horizontal">
         <a class="btn-floating btn-large red" ng-click="vm.cameraCapture()">

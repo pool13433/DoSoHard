@@ -3,19 +3,36 @@ app.factory('Utility', Utility);
 app.factory('GeolocationFactory', GeolocationFactory);
 app.factory('$safeApply', ['$rootScope', safeApply]);
 
-app.filter('split', function() {
-    return function(input, splitChar, splitIndex) {
+app.filter('split', function () {
+    return function (input, splitChar, splitIndex) {
         // do some bounds checking here to ensure it has that index
         return input.split(splitChar)[splitIndex];
     }
 });
+
+app.factory('AuthenticationService', ['$rootScope', AuthenticationService]);
+
+
+function AuthenticationService( $rootScope) {
+    var Authentication = {};
+
+    Authentication.SetCredentials = function (firebaseUser) {
+        $rootScope.firebaseUser = firebaseUser        
+    }
+
+    Authentication.ClearCredentials = function () {
+        $rootScope.firebaseUser = null;        
+    };
+
+    return Authentication;
+}
 
 function GeolocationFactory() {
     var Geolocation = {}
 
     Geolocation.init = function () {
         if (navigator.geolocation) {
-            navigator.geolocation.getCurrentPosition(function(loc){
+            navigator.geolocation.getCurrentPosition(function (loc) {
                 Geolocation.coords = loc.coords;
             });
         }

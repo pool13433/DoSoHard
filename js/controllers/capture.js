@@ -1,5 +1,5 @@
 
-function CaptureController(CameraFactory, FirebaseService, Utility, GeolocationFactory, $scope) {
+function CaptureController(CameraFactory, FirebaseService, Utility, GeolocationFactory, $scope, $rootScope) {
     var vm = this;
     var firebaseStoragePath = "gallery/";
     var $modalCapture = $('#model-capture-form');
@@ -87,6 +87,10 @@ function CaptureController(CameraFactory, FirebaseService, Utility, GeolocationF
     var localMediaStream = null;
 
     vm.pushPost = function (event) {
+        var googleProvider = $rootScope.firebaseUser;
+        var googleId = googleProvider.providerData[0].uid;
+
+        console.log('googleId ::==',googleId);
         var coords = GeolocationFactory.coords;
         var currentDTM = firebase.database.ServerValue.TIMESTAMP;
         var refGallery = firebase.database().ref().child('/gallery');
@@ -98,13 +102,21 @@ function CaptureController(CameraFactory, FirebaseService, Utility, GeolocationF
             latitude: coords.latitude,
             location_name: vm.location_name,
             longitude: coords.longitude,
-            user_id: "-Km1o604__n-j5yOkTce"
+            gallery_rate: {
+                x: {
+                    user_id: googleId
+                }
+            },
+            gallary_rate_count: 0,
+            user_id:  googleId
         }
         refGallery.push(form, function () {
             pushMediaToStorage(blobName);
             $('#model-capture-form').modal('close');
             setTimeout(function () {
                 CameraFactory.init();
+                vm.caption = '';
+                vm.location_name = '';
                 vm.camera.capture = false;
             }, 1000);
         });
