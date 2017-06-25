@@ -20,12 +20,16 @@ function FeedController($scope, FirebaseService) {
                 refGallery.orderByChild("user_id").equalTo(_id).on("value", function (subSnapshot) {
                     $scope.$safeApply(function () {
                         _data.gallerys = [];
+                       // _data.tatal_rate= [];
+                        var totolRate = 0 ;
                         subSnapshot.forEach(function (data) {
                             var _dataSub = subSnapshot.child(data.key).val();
-                            _data.gallerys.push(_dataSub);
+                            
+
+
                             //console.log(JSON.stringify(_dataSub));
                             //console.log('_dataSub ::==', _dataSub);                            
-                            /*var gallerys_rate = _dataSub.gallery_rate;
+                            var gallerys_rate = _dataSub.gallery_rate;
 
                             var sumGallery = _(gallerys_rate).groupBy('user_id').map(function (value, key) {
                                 //console.log('key ::==',key);
@@ -36,9 +40,19 @@ function FeedController($scope, FirebaseService) {
                                 }
                             }).value();
                             console.log('_data ::==', _data.name);
-                            console.log('sumGallery ::==', sumGallery);*/
-                            //_data.gallerys.push(_dataSub);
+                            console.log('sumGallery ::==', sumGallery);
+
+                            console.log('---------------------');
+                            var total = _.sumBy(sumGallery,function(total){
+                                return total.count;
+                            });
+                            console.log('total ::==', total);
+                            totolRate += total;
+                            _data.gallerys.push(_dataSub);
+
+
                         });
+                        _data.total_rate = totolRate; 
                         vm.profileList.push(_data);
                         console.log("vm.profileList :: " ,vm.profileList);
                     });

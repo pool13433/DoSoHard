@@ -1,17 +1,26 @@
 <script type="text/javascript">
 	
-	/*$(document).ready(function(){
+	$(document).ready(function(){
 		$("#FeedView").on("click","img",function(){
-			//$('.materialboxed').materialbox();
+			$('.materialboxed').materialbox();
 		});
-	});*/
+		$("#FeedView").on("click","#profile",function(){
+			
+		});
+		$("#FeedView").on("mouseover","i",function(){
+			$(this).css("cursor","pointer");
+		});
+		$("#FeedView").on("click",".like",function(){
+			alert("LIKE !!");
+		});
+	});
 </script>
 
 
 <div id="FeedView" ng-controller="FeedController as vm" >
 	<h1>{{vm.title}}</h1>
 	<!-- <div ng-repeat="profile in vm.profileList"> -->
-	<ul ng-repeat="profile in vm.profileList" class="collection" style="padding: 10px;">
+	<ul ng-repeat="profile in vm.profileList | orderBy:'-total_rate'" class="collection" style="padding: 10px;">
 		
 		<div class="col m4" >
 			<div class="col m6 s6" >
@@ -25,31 +34,32 @@
 					<div class="row">
 						<div class="col m4 center-align" >
 							<i class="material-icons ">face</i> <br>
-							<label>23.5k</label>
+							<label>{{profile.total_rate}}</label>
+							<!-- <label>23.5k</label> -->
 
 						</div>
-						<div class="col m4 center-align" >
-							<i class="material-icons">grade</i> <br>
-							<label>17.5k</label>
-						</div>
-						<div class="col m4 center-align" >
+						<!-- <div class="col m4 center-align" >
+							 <i class="material-icons">grade</i> <br>
+							<label>17.5k</label> 
+						</div> -->
+						<div class="col m4 center-align like" >
 							<i class="material-icons">thumb_up</i> <br>
-							<label>192.5k</label>
+							<!-- <label>192.5k</label> -->
 						</div>
 					</div>
 				</p>
 			</div>
 		</div>
-		<div ng-repeat="gallory in profile.gallerys | limitTo:4 | orderBy:'gallary_rate_count' " class="col m2 s3">
+		<div ng-repeat="gallory in profile.gallerys | limitTo:4 | orderBy:'-total_rate'" class="col m2 s3">
 			<div class="col  m12">
 			
 			<!-- materialboxed -->
 				<img src="images/default-img.png" alt="" class="z-depth-2 hoverable materialboxed" style="width: 100%;height: 100%">
 			</div>
-			
 		</div>
 		<div  class="col m2 s3  center-align right" style="margin-top:10px;">
-			<u><a href="#Profile">See More</a></u>
+			<!-- <u><a id="Profile" href="#Profile">See More</a></u> -->
+			<u><a ng-href="/profile?user_id=1234">See More</a></u>
 		</div>
 	</ul>
 </div>
