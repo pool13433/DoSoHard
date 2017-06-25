@@ -11,9 +11,9 @@ function FeedController($scope, FirebaseService) {
         $scope.$safeApply(function () {
             snapshot.forEach(function (data) {
                 var _id = data.key;
-                console.log('data ::==', _id);
+                //console.log('data ::==', _id);
                 var _data = snapshot.child(_id).val();
-                console.log('_data ::==', _data.name);
+                //console.log('_data ::==', _data.name);
 
                 // Galllery List
                 var refGallery = firebase.database().ref().child('/gallery');
@@ -22,9 +22,10 @@ function FeedController($scope, FirebaseService) {
                         _data.gallerys = [];
                         subSnapshot.forEach(function (data) {
                             var _dataSub = subSnapshot.child(data.key).val();
+                            _data.gallerys.push(_dataSub);
                             //console.log(JSON.stringify(_dataSub));
                             //console.log('_dataSub ::==', _dataSub);                            
-                            var gallerys_rate = _dataSub.gallery_rate;
+                            /*var gallerys_rate = _dataSub.gallery_rate;
 
                             var sumGallery = _(gallerys_rate).groupBy('user_id').map(function (value, key) {
                                 //console.log('key ::==',key);
@@ -35,11 +36,11 @@ function FeedController($scope, FirebaseService) {
                                 }
                             }).value();
                             console.log('_data ::==', _data.name);
-                            console.log('sumGallery ::==', sumGallery);
+                            console.log('sumGallery ::==', sumGallery);*/
                             //_data.gallerys.push(_dataSub);
                         });
                         vm.profileList.push(_data);
-                        //console.log("vm.profileList :: " ,vm.profileList);
+                        console.log("vm.profileList :: " ,vm.profileList);
                     });
                 }, function (error) {
                     console.log("Error: " + error.code);
