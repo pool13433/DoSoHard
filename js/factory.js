@@ -10,20 +10,18 @@ app.filter('split', function () {
     }
 });
 
-app.factory('AuthenticationService', ['$cookieStore', '$rootScope', AuthenticationService]);
+app.factory('AuthenticationService', ['$rootScope', AuthenticationService]);
 
 
-function AuthenticationService($cookieStore, $rootScope) {
+function AuthenticationService( $rootScope) {
     var Authentication = {};
 
     Authentication.SetCredentials = function (firebaseUser) {
-        $rootScope.firebaseUser = firebaseUser
-        $cookieStore.put('globals', $rootScope.firebaseUser);
+        $rootScope.firebaseUser = firebaseUser        
     }
 
     Authentication.ClearCredentials = function () {
-        $rootScope.firebaseUser = null;
-        $cookieStore.remove('firebaseUser');
+        $rootScope.firebaseUser = null;        
     };
 
     return Authentication;

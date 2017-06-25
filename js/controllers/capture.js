@@ -1,5 +1,5 @@
 
-function CaptureController(CameraFactory, FirebaseService, Utility, GeolocationFactory, $scope) {
+function CaptureController(CameraFactory, FirebaseService, Utility, GeolocationFactory, $scope, $rootScope) {
     var vm = this;
     var firebaseStoragePath = "gallery/";
     var $modalCapture = $('#model-capture-form');
@@ -99,12 +99,12 @@ function CaptureController(CameraFactory, FirebaseService, Utility, GeolocationF
             location_name: vm.location_name,
             longitude: coords.longitude,
             gallery_rate: {
-                x : {
-                    user_id : 'xxxxxxxxx'
+                x: {
+                    user_id: $rootScope.firebaseUser
                 }
             },
             gallary_rate_count: 0,
-            user_id: "-Km1o604__n-j5yOkTce"
+            user_id:  $rootScope.firebaseUser
         }
         refGallery.push(form, function () {
             pushMediaToStorage(blobName);
