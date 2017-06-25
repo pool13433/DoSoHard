@@ -1,6 +1,8 @@
 function FeedController($scope, FirebaseService) {
     var vm = this;
-    var refProfile = firebase.database().ref().child('/profile');
+    vm.profileList = [];
+       
+    /*var refProfile = firebase.database().ref().child('/profile');
 
     refProfile.orderByKey().on("value", function (snapshot) {
 
@@ -13,9 +15,45 @@ function FeedController($scope, FirebaseService) {
         });
     }, function (error) {
         console.log("Error: " + error.code);
-    });
+    });*/
     //Title
     vm.name = 'Feed';
+
+    //------------------------------------------------------------------
+// Firebase
+    var refProfile = firebase.database().ref().child('/profile');
+    refProfile.orderByKey().on("value", function (snapshot) {
+        $scope.$safeApply(function() {
+        snapshot.forEach(function (data) {
+            var _id = data.key;
+            console.log('data ::==', _id);
+            var _data = snapshot.child(_id).val();
+            console.log('_data ::==', _data);
+
+            // Galllery List
+            var refGallery = firebase.database().ref().child('/gallery');
+            refGallery.orderByChild("user_id").equalTo(_id).on("value", function (subSnapshot) {
+                 $scope.$safeApply(function() {
+                _data.gallerys = [];
+                subSnapshot.forEach(function (data) {
+                    var _dataSub = subSnapshot.child(data.key).val();
+                    console.log('_dataSub ::==', _dataSub);
+                    _data.gallerys.push(_dataSub);
+                });
+                vm.profileList.push(_data);
+                console.log("vm.profileList :: " ,vm.profileList);
+                });
+            }, function (error) {
+                console.log("Error: " + error.code);
+            });
+
+        });
+        });
+    }, function (error) {
+        console.log("Error: " + error.code);
+    });
+
+//-----------------------------------------------------------------
 
 
 }
