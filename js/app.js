@@ -29,7 +29,10 @@ app.run(['$rootScope', '$location', 'FirebaseService', '$safeApply', function ($
     $rootScope.$on('$viewContentLoaded', function () {
         console.log('viewContentLoaded ::==');
         var user = firebase.auth().currentUser;
-        if (user == null) {
+        var firebaseUser = $rootScope.firebaseUser;
+        console.log('firebaseUser ::==',firebaseUser);
+        console.log('user ::==',user);
+        if (user == null && firebaseUser == undefined) {
             $location.path('/login');
         }
     });

@@ -87,6 +87,10 @@ function CaptureController(CameraFactory, FirebaseService, Utility, GeolocationF
     var localMediaStream = null;
 
     vm.pushPost = function (event) {
+        var googleProvider = $rootScope.firebaseUser;
+        var googleId = googleProvider.providerData[0].uid;
+
+        console.log('googleId ::==',googleId);
         var coords = GeolocationFactory.coords;
         var currentDTM = firebase.database.ServerValue.TIMESTAMP;
         var refGallery = firebase.database().ref().child('/gallery');
@@ -100,11 +104,11 @@ function CaptureController(CameraFactory, FirebaseService, Utility, GeolocationF
             longitude: coords.longitude,
             gallery_rate: {
                 x: {
-                    user_id: $rootScope.firebaseUser
+                    user_id: googleId
                 }
             },
             gallary_rate_count: 0,
-            user_id:  $rootScope.firebaseUser
+            user_id:  googleId
         }
         refGallery.push(form, function () {
             pushMediaToStorage(blobName);
