@@ -48,7 +48,7 @@ function FeedController($scope, FirebaseService) {
             });
 
         });
-     });
+   
     }, function (error) {
         console.log("Error: " + error.code);
     });

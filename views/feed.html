@@ -1,32 +1,12 @@
 <script type="text/javascript">
 	
 	$(document).ready(function(){
-		// $('#modal1').modal('open');
-		// $('.modal').modal({
-		 //	 dismissible: true, // Modal can be dismissed by clicking outside of the modal
-     // opacity: .8, // Opacity of modal background
-    //  inDuration: 300, // Transition in duration
-     // outDuration: 200, // Transition out duration
-     // startingTop: '4%', // Starting top style attribute
-     // endingTop: '10%' // Callback for Modal close
-    //});
 		$("#FeedView").on("click","img",function(){
-			//alert(55);
 			$('.materialboxed').materialbox();
-			// $('#modal1').modal('open');
 		});
-		 //$('#modal1').modal('close');
 	});
 </script>
 
- <div id="modal1" class="modal" >
-    <div class="modal-content"  >
-      <img src="images/default-img.png"   alt="" class="z-depth-2 hoverable " style="height: 80%;width:80%">
-    </div>
-    <div class="modal-footer" style="">
-      <a href="#!" class="modal-action modal-close waves-effect waves-green btn-flat">Agree</a>
-    </div>
-  </div>
 
 <div id="FeedView" ng-controller="FeedController as vm" >
 	<h1>{{vm.title}}</h1>
