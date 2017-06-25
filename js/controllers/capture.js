@@ -98,6 +98,12 @@ function CaptureController(CameraFactory, FirebaseService, Utility, GeolocationF
             latitude: coords.latitude,
             location_name: vm.location_name,
             longitude: coords.longitude,
+            gallery_rate: {
+                x : {
+                    user_id : 'xxxxxxxxx'
+                }
+            },
+            gallary_rate_count: 0,
             user_id: "-Km1o604__n-j5yOkTce"
         }
         refGallery.push(form, function () {
