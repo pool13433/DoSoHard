@@ -30,19 +30,35 @@ function LoginController(FirebaseService, AuthenticationService, $location, $sco
                 // The signed-in user info.
                 var user = result.user;
 
-                user.sendEmailVerification().then(function() {
-                console.log("sendEmailVerification suc");
-              }, function(error) {
-                console.log("sendEmailVerification fail",error);
-              });
 
-                console.log("User", user);
-                console.log("Username", user.displayName);
-                $scope.$safeApply(function () {
-                    AuthenticationService.SetCredentials(user);
-                    $location.path('/feed');
-                    console.log(" location.path ::");
+
+
+                user.sendEmailVerification().then(function () {
+                    console.log("sendEmailVerification suc");
+
+                    console.log("User", user);
+                    console.log("Username", user.displayName);
+
+                    // Save profile
+                    var refProfile = firebase.database().ref().child('/profile');
+                    refProfile.push({
+                        first_name: user.displayName,
+                        name: user.displayName,
+                        last_name: user.displayName,
+                        profile_image: user.photoURL,
+                    }, function () {
+                        $scope.$safeApply(function () {
+                            AuthenticationService.SetCredentials(user);
+                            $location.path('/feed');
+                            console.log(" location.path ::");
+                        });
+                    });
+
+                }, function (error) {
+                    console.log("sendEmailVerification fail", error);
                 });
+
+
                 // ...
             }).catch(function (error) {
                 // Handle Errors here.
