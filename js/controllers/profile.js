@@ -1,4 +1,4 @@
-function ProfileController(FirebaseStore, $scope, FirebaseService) {
+function ProfileController($scope, FirebaseService, $rootScope) {
 
     var googleProvider = $rootScope.firebaseUser; 
     var googleId = googleProvider.providerData[0].uid;
@@ -25,9 +25,41 @@ function ProfileController(FirebaseStore, $scope, FirebaseService) {
     var rateCount;
     var pictureObj = {};
     var pictureURL;
-    var ref = firebase.database().ref("/gallery");
-    ref.orderByChild("user_id").equalTo(vm.profile_profileKey).on("value", function (snapshot) {
-        $scope.$safeApply(function () {
+    // var ref = firebase.database().ref("/gallery");
+
+    firebase.database().ref("/gallery").orderByChild("user_id").equalTo(vm.profile_profileKey).on("child_changed", function (snapshot) {
+        resetValue();
+        getDataFromDataBase(snapshot);
+    });
+
+    firebase.database().ref("/gallery").orderByChild("user_id").equalTo(vm.profile_profileKey).on("child_removed", function (snapshot) {
+        resetValue();
+        getDataFromDataBase(snapshot);
+    });
+
+    firebase.database().ref("/gallery").orderByChild("user_id").equalTo(vm.profile_profileKey).on("value", function (snapshot) {
+       getDataFromDataBase(snapshot);
+    }); 
+
+    function resetValue(){
+        vm.imageValue = [];
+        //level 1 is index of localtion
+        //level 2 is image name ~#~# rating
+        vm.imageObj = [[]];
+        //Data is Location --> Index
+        vm.imageMapLocation = [];
+        //Data is Index --> Location
+        vm.imageMapLocationConvert = [];
+        //Big picture of each location
+        vm.bigPictureObj = [];
+        //Imgaes data after modifire
+        vm.imageToPage = [];
+        vm.contLocation = 0;
+        vm.resultMapingLocation;
+    }
+
+    function getDataFromDataBase(snapshot){
+         $scope.$safeApply(function () {
             snapshot.forEach(function (data) {
                 childValue = snapshot.child(data.key).val();
                 //Check if new Locaton of array and 1D
@@ -117,6 +149,8 @@ function ProfileController(FirebaseStore, $scope, FirebaseService) {
                 });
             }
             console.log("vm.imageObj array new val : ", vm.imageObj);
+            ref.off("value");
         });
-    });
+    }
+    
 }
