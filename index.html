@@ -5,9 +5,11 @@
     <title>แอพ Smart Capture</title>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <link rel="manifest" href="./manifest.json">
     <!--<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">-->
     <link href="./node_modules/materialize-css/dist/fonts/roboto/Roboto-Regular.woff" rel="stylesheet">
     <link rel="stylesheet" href="./node_modules/materialize-css/dist/css/materialize.min.css" />
+    <link rel="stylesheet" href="../css/icon.css" />
     <script type="text/javascript" src="./node_modules/jquery/dist/jquery.min.js"></script>
     <script type="text/javascript" src="./node_modules/firebase/firebase.js"></script>
     <!--<script type="text/javascript" src="./node_modules/materialize-css/dist/js/materialize.min.js"></script>-->
@@ -20,11 +22,24 @@
     <script type="text/javascript" src="./js/controllers/capture.js"></script>
     <script type="text/javascript" src="./js/controllers/geolocation.js"></script>
     <script type="text/javascript" src="./js/controllers/login.js"></script>
-    <script type="text/javascript" src="./js/controllers/profile.js"></script>    
+    <script type="text/javascript" src="./js/controllers/profile.js"></script>
     <script type="text/javascript" src="./js/controller.js"></script>
     <script type="text/javascript" src="./js/service.js"></script>
     <base href="/">
-    <link rel="stylesheet" href="../css/icon.css" />
+    
+    <script type="text/javascript">
+        if ('serviceWorker' in navigator) {
+            window.addEventListener('load', function () {
+                navigator.serviceWorker.register('../sw.js').then(function (registration) {
+                    // Registration was successful
+                    console.log('ServiceWorker registration successful with scope: ', registration.scope);
+                }, function (err) {
+                    // registration failed :(
+                    console.log('ServiceWorker registration failed: ', err);
+                });
+            });
+        }
+    </script>
 </head>
 
 <body>

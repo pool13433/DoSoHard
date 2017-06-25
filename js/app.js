@@ -41,5 +41,7 @@ app.config(function ($locationProvider, $routeProvider) {
         }
     });
 }); */
-app.run(['$safeApply', function () { }]);
+app.run(['$safeApply', function () {
+    
+}]);
 
